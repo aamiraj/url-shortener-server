@@ -3,7 +3,10 @@ require("dotenv").config();
 
 function DBConnect() {
   mongoose
-    .connect(process.env.DATABASE_LOCAL)
+    .connect(process.env.DATABASE_PROD, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
     .then(() => {
       console.log(`Database connection is successful.`.green.bold);
     })

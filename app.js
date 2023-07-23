@@ -1,41 +1,24 @@
 const express = require("express");
-const app = express();
+const express_app = express();
 const cors = require("cors");
-const productsRouter = require("./routes/products.route");
-const brandRouter = require("./routes/brand.route");
-const storeRouter = require("./routes/store.route");
-const categoryRouter = require("./routes/category.route");
-const stockRouter = require("./routes/stock.route");
 const userRouter = require("./routes/user.route");
+const shortUrlRouter = require("./routes/shortUrl.route");
 
-app.use(express.json());
-app.use(cors());
+express_app.use(express.json());
+express_app.use(cors());
 
 //main function definition
 async function main() {
   try {
-    app.get("/", (req, res) => {
+    express_app.get("/", (req, res) => {
       res.send("Route is working! YaY!");
     });
 
-    //route for products
-    app.use("/api/v1/products", productsRouter);
-
-    //route for brands
-    app.use("/api/v1/brands", brandRouter);
-
-    //route for stores
-    app.use("/api/v1/store", storeRouter);
-
-    //route for category
-    app.use("/api/v1/categories", categoryRouter);
-
-    //route for stock
-    app.use("/api/v1/stock", stockRouter);
+    // route for short url
+    express_app.use("/api/v1/short-url", shortUrlRouter);
 
     //route for user
-    app.use("/api/v1/user", userRouter);
-
+    express_app.use("/api/v1/user", userRouter);
   } catch (error) {
     console.log(error);
   }
@@ -44,4 +27,4 @@ async function main() {
 //main function invoke
 main().catch((error) => console.log(error));
 
-module.exports = app;
+module.exports = express_app;
