@@ -12,3 +12,12 @@ exports.shortenService = async (data) => {
     data: result,
   };
 };
+
+exports.findShortUrlService = async (id) => {
+  const result = await ShortUrl.findOne({short: id})
+  return {
+    status: "succeed",
+    message: "Data insertion successful.",
+    data: result,
+  };
+};

@@ -3,6 +3,7 @@ const express_app = express();
 const cors = require("cors");
 const userRouter = require("./routes/user.route");
 const shortUrlRouter = require("./routes/shortUrl.route");
+const { getUrl } = require("./controllers/shortUrl.controller");
 
 express_app.use(express.json());
 express_app.use(cors());
@@ -16,6 +17,8 @@ async function main() {
 
     // route for short url
     express_app.use("/api/v1/short-url", shortUrlRouter);
+    express_app.use("/:id", getUrl);
+
 
     //route for user
     express_app.use("/api/v1/user", userRouter);
