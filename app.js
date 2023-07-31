@@ -17,7 +17,7 @@ async function main() {
 
     // route for short url
     express_app.use("/api/v1/short-url", shortUrlRouter);
-    express_app.use("/:id", getUrl);
+    express_app.get("/:id", getUrl);
 
 
     //route for user

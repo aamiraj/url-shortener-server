@@ -10,7 +10,17 @@ const shortUrlSchema = mongoose.Schema(
     },
     short: {
       type: String,
-      required: true,
+      required: [true, "Please provide a valid short link."],
+      unique: [true, "Short link should be unique."],
+      validate: {
+        validator: function (str) {
+          if(str.length === 10){
+            return true
+          }
+          return false
+        },
+        message: "Short link should be length 10.",
+      },
     },
     email: {
       type: String,
