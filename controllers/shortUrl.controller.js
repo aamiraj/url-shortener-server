@@ -1,8 +1,10 @@
 const {
   shortenService,
+  findAllService,
   findShortUrlService,
   saveUrlService,
   deleteUrlService,
+  findOneService,
 } = require("../services/shortUrl.service");
 
 exports.shorten = async (req, res) => {
@@ -21,6 +23,37 @@ exports.shorten = async (req, res) => {
     });
   }
 };
+
+exports.getAll = async (req, res) => {
+  try {
+    const { userId } = req.params;
+    const result = await findAllService(userId);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: "Failed to get all data.",
+      error: error.message,
+    });
+  }
+};
+
+exports.getOne = async (req, res) => {
+  try {
+    const { id } = req.params;
+    const result = await findOneService(id);
+    res.status(200).json(result);
+  } catch (error) {
+    console.log(error);
+    res.status(400).json({
+      status: "failed",
+      message: "Failed to get all data.",
+      error: error.message,
+    });
+  }
+};
+
 exports.getUrl = async (req, res) => {
   try {
     const { id } = req.params;
@@ -55,6 +88,7 @@ exports.saveUrl = async (req, res) => {
 exports.deleteUrl = async (req, res) => {
   try {
     const data = req.body;
+    console.log(data);
     const result = await deleteUrlService(data);
     res.status(200).json(result);
   } catch (error) {

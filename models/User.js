@@ -27,7 +27,7 @@ const userSchema = mongoose.Schema(
             minSymbols: 1,
           });
         },
-        message: "Password is not strong enougn",
+        message: "Password is not strong enough.",
       },
     },
     confirmPassword: {
@@ -39,8 +39,7 @@ const userSchema = mongoose.Schema(
     },
     role: {
       type: String,
-      default: "buyer",
-      enum: ["buyer", "store-manager", "admin"],
+      enum: ["guest", "google", "email"],
     },
     firstName: {
       type: String,
@@ -65,17 +64,9 @@ const userSchema = mongoose.Schema(
         ],
       },
     ],
-    shippingAddress: {
-      type: String,
-    },
     imageURL: {
       type: String,
       validate: [validator.isURL, "Please provide a valid image URL"],
-    },
-    status: {
-      type: String,
-      default: "inactive",
-      enum: ["active", "inactive", "blocked"],
     },
     passwordChangedAt: Date,
     passwordToken: String,
@@ -86,7 +77,7 @@ const userSchema = mongoose.Schema(
   { timestamps: true }
 );
 
-userSchema.pre("save", function(next){
+userSchema.pre("save", function (next) {
   const userPass = this.password;
   const hashedPassword = bcrypt.hashSync(userPass);
   this.password = hashedPassword;

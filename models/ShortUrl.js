@@ -14,17 +14,27 @@ const shortUrlSchema = mongoose.Schema(
       unique: [true, "Short link should be unique."],
       validate: {
         validator: function (str) {
-          if(str.length === 10){
-            return true
+          if (str.length === 10) {
+            return true;
           }
-          return false
+          return false;
         },
         message: "Short link should be length 10.",
       },
     },
-    email: {
-      type: String,
-      isEmail: true,
+    user_id: {
+      type: mongoose.Types.ObjectId,
+      required: [true, "User id is required."],
+      validate: {
+        validator: function (obj) {
+          const str = obj.toString();
+          if (str.length === 24) {
+            return true;
+          }
+          return false;
+        },
+        message: "User id should be length 24.",
+      },
     },
   },
   { timestamps: true }
